@@ -103,6 +103,9 @@ abstract class Program(
                     run()
                 }
             }
+        } else {
+            // User input was not a valid Int; "Re-run" the Konsole
+            run()
         }
     }
 }
@@ -281,12 +284,32 @@ class MainMenu: KonsoleMenu {
 }
 
 interface KonsoleMenu {
+
+    /**
+     * The KonsoleMenu's title
+     */
     val title: String
+
+    /**
+     * A list of the KonsoleMenu's options
+     */
     val options: MutableList<String>
+
+    /**
+     * The kurrent user input todo can this be refactored to the Konsole itself and not break anything??
+     */
     var kurrentUserInput: Int?
+
+    /**
+     * The KonsoleMenu's back option
+     */
     val backOption: Int
         get() = options.size + 1
 
+
+    /**
+     * Abstract kallback to execute the KonsoleMenu's business logic according to the users input
+     */
     fun kallback(): KonsoleMenu?
 
     /**
@@ -303,6 +326,10 @@ interface KonsoleMenu {
         return userInput < this.backOption
     }
 
+    /**
+     * Reverts the KonsoleMenu's properties back to default values; Kalled after run cycle forking comes to an end
+     * and the Konsole is about to be run again...
+     */
     fun klean() {
         println("kleaning")
         this.kurrentUserInput = null
