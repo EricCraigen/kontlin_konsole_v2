@@ -3,6 +3,7 @@ package nfc_playground.menus
 import kotlin_konsole.menu.KonsoleMenu
 
 class WriteTagsMenu: KonsoleMenu {
+
     override val title: String = "Write Tags Menu"
 
     override val options: MutableList<String> = WriteTagsMenu.options

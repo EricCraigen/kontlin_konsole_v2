@@ -1,10 +1,12 @@
-package kotlin_konsole
+package kotlin_konsole.program
 
 import kotlin_konsole.menu.KonsoleMenu
-import kotlin_konsole.utils.KonsolePrinter
-import kotlin_konsole.utils.KonsoleStatus
+import kotlin_konsole.menu.MainMenu
 
-interface Konsole {
+/**
+ * The Konsole. Defines the concrete properties and functionality required for a menu-driven Program
+ */
+interface KonsoleAdapter {
 
     /**
      * The Konsole's kurrent status
@@ -27,9 +29,10 @@ interface Konsole {
     var previousMenu: KonsoleMenu
 
     /**
-     * The Konsole's main KonsoleMenu
+     * The Konsole's main KonsoleMenu |
+     * NOTE: Every program requires AT LEAST a main KonsoleMenu
      */
-    val mainMenu: KonsoleMenu
+    val mainMenu: MainMenu
 
     /**
      * Returns the "Killing Konsole..." message as a string |
@@ -49,7 +52,7 @@ interface Konsole {
 
     /**
      * Uses the KonsolePrinter to print the user selection prompt;
-     * Returns a readline() for processing userInput in Konsole kontrol logic |
+     * Returns a readLine() for processing userInput in Konsole kontrol logic |
      * NOTE: Printing to the Konsole is done from within KonsolePrinter
      */
     fun promptUserForInput(): String? {
@@ -61,7 +64,7 @@ interface Konsole {
      * Returns a tailored per KonsoleMenu, invalid selection message as a string |
      * NOTE: Printing to the Konsole is done from within KonsolePrinter
      */
-    fun invalidSelection(currentMenu: KonsoleMenu, userInput: Int): String {
+    fun invalidSelection(currentMenu: KonsoleMenu, userInput: Int?): String {
         return KonsolePrinter.invalidSelection(currentMenu, userInput)
     }
 

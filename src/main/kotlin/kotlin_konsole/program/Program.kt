@@ -1,98 +1,94 @@
 package kotlin_konsole.program
 
-import kotlin_konsole.Konsole
-import kotlin_konsole.menu.KonsoleMenu
-import kotlin_konsole.utils.KonsoleStatus
-import nfc_playground.menus.MainMenu
+import kotlin_konsole.menu.MainMenu
 
-abstract class Program: Konsole {
+/**
+ * The Program; An engine for simple menu-driven program's. |
+ * Defines the concrete properties and functionality required for a menu-driven Program |
+ * Holds the kurrent KonsoleStatus and kurrent user input value; Defines the Program's run loop.
+ */
+abstract class Program: KonsoleAdapter {
 
-    final override val mainMenu: MainMenu = MainMenu()
+    override var konsoleStatus: KonsoleStatus = KonsoleStatus.IN_KALLBACK
 
     override var kurrentUserInput: Int? = null
 
-    override var kurrentMenu: KonsoleMenu = mainMenu
 
-    override var previousMenu: KonsoleMenu = mainMenu
-
+    /**
+     * The Program's run loop. |
+     * The logic provides the engine for kontrolling a Program's "clock cycle"
+     */
     fun run() {
 
         // Set the program's status to running
         this.konsoleStatus = KonsoleStatus.RUNNING
 
-        // Print the kurrentMenu
-        printMenuOptions(kurrentMenu)
+        while (this.konsoleStatus != KonsoleStatus.STOPPED) {
 
-        // Get the user's menu selection
-        val userInput: Int? = promptUserForInput()?.toIntOrNull()
+            // Print the kurrentMenu
+            printMenuOptions(this.kurrentMenu)
 
-        if (userInput != null) {
+            // Get the user's menu selection
+            val userInput: Int? = promptUserForInput()?.toIntOrNull()
+            println()
 
-            // Validate userInput to be a valid menu option, given the kurrent menu
-            val validatedUserInput = kurrentMenu.validateUserInput(userInput)
+            if (userInput != null) {
 
-            if (validatedUserInput) {
-                // User input IS valid
+                // Validate userInput to be a valid menu option, given the kurrent menu
+                val validatedUserInput = this.kurrentMenu.validateUserInput(userInput)
 
-                // Set the kurrentMenu's kurrentUserInput to the validated user input
-                kurrentUserInput = userInput
+                if (validatedUserInput) {
+                    // User input IS valid
 
-                // Kall kallback on the kurrent menu to either run the menu's kallback or restart the konsole after setting the Konsole's kurrent menu to the nextMenu
-                val nextMenu = kurrentMenu.kallback(kurrentUserInput!!) // not null assert ok here since userInput has already been validated for null...
+                    // Set the kurrentMenu's kurrentUserInput to the validated user input
+                    this.kurrentUserInput = userInput
 
-                if (nextMenu != null) {
+                    // Kall kallback on the kurrent menu to either run the menu's kallback or restart the konsole after setting the Konsole's kurrent menu to the nextMenu
+                    val nextMenu =
+                        this.kurrentMenu.kallback(kurrentUserInput!!) // not null assert ok here since userInput has already been validated for null...
 
-                    // Set the Konsole's kurrent menu to the next menu
-                    this.kurrentMenu = nextMenu
+                    if (nextMenu != null) {
 
-                    // "Re-run" the Konsole with the new kurrent menu set
-                    run()
-                } else {
-
-                    // Set the program status to unknown since we are now handing off to the kurrent menu's kallback function to do work
-                    konsoleStatus = KonsoleStatus.UNKNOWN
-
-                    // do work in kurrent menu Class
-
-                    // "Re-run" the Konsole
-                    run()
-                }
-            } else {
-                // user input IS NOT valid || IS the kurrent menu's back option
-
-                val userInputIsBackOption = kurrentMenu.userInputIsBackOption(userInput)
-
-                if (userInputIsBackOption) {
-                    // User input IS the kurrent menu's back option
-
-                    if (kurrentMenu is MainMenu) {
-
-                        // Set the Konsole's status to stopped
-                        konsoleStatus = KonsoleStatus.STOPPED
-
-                        // Kill the Konsole
-                        killKonsole()
+                        // Set the Konsole's kurrent menu to the next menu
+                        this.kurrentMenu = nextMenu
                     } else {
 
-                        // Revert the Konsole's kurrent menu back to the previous menu
-                        reverseKonsole(previousMenu)
+                        // Set the program status to unknown since we are now handing off to the kurrent menu's kallback function to do work
+                        this.konsoleStatus = KonsoleStatus.IN_KALLBACK
 
-                        // "Re-run" the Konsole with the kurrent menu reverted
-                        run()
+                        // do work in kurrent menu Class
                     }
                 } else {
-                    // User input IS NOT the kurrent menu's back option
+                    // user input IS NOT valid || IS the kurrent menu's back option
 
-                    // Alert the user they have made an invalid selection
-                    invalidSelection(kurrentMenu, userInput)
+                    val userInputIsBackOption = this.kurrentMenu.userInputIsBackOption(userInput)
 
-                    // "Re-run" the Konsole
-                    run()
+                    if (userInputIsBackOption) {
+                        // User input IS the kurrent menu's back option
+
+                        if (this.kurrentMenu is MainMenu) {
+
+                            // Set the Konsole's status to stopped
+                            this.konsoleStatus = KonsoleStatus.STOPPED
+
+                            // Kill the Konsole
+                            killKonsole()
+                        } else {
+
+                            // Revert the Konsole's kurrent menu back to the previous menu
+                            reverseKonsole(this.previousMenu)
+                        }
+                    } else {
+                        // User input IS NOT the kurrent menu's back option
+
+                        // Alert the user they have made an invalid selection
+                        invalidSelection(this.kurrentMenu, userInput)
+                    }
                 }
+            } else {
+                // Alert the user they have made an invalid selection
+                invalidSelection(this.kurrentMenu, userInput)
             }
-        } else {
-            // User input was not a valid Int; "Re-run" the Konsole
-            run()
         }
     }
 }

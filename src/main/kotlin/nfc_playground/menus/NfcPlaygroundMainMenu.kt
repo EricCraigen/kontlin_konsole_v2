@@ -1,12 +1,13 @@
 package nfc_playground.menus
 
 import kotlin_konsole.menu.KonsoleMenu
+import kotlin_konsole.menu.MainMenu
 
-class MainMenu: KonsoleMenu {
+class NfcPlaygroundMainMenu: MainMenu() {
 
     override val title: String = "NFC Playground"
 
-    override val options: MutableList<String> = MainMenu.options
+    override val options: MutableList<String> = NfcPlaygroundMainMenu.options
 
     override fun kallback(userInput: Int): KonsoleMenu? {
         println("kalling back yo!")

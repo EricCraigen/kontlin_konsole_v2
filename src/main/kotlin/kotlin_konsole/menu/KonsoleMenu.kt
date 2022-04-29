@@ -1,5 +1,9 @@
 package kotlin_konsole.menu
 
+/**
+ * A Konsole's menu |
+ * Defines the concrete properties and functionality required for a menu-driven Program
+ */
 interface KonsoleMenu {
 
     /**
@@ -20,7 +24,9 @@ interface KonsoleMenu {
 
 
     /**
-     * Abstract kallback to execute the KonsoleMenu's business logic according to the users input
+     * Resolves the users input, returns the next KonsoleMenu if menu selection resolves as a KonsoleMenu;
+     * If menu selection calls a method, "do work" within that method and return null to get back out to the Konsole;
+     * Will present the user with this KonsoleMenu.
      */
     fun kallback(userInput: Int): KonsoleMenu?
 
