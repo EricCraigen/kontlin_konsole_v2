@@ -12,8 +12,7 @@ abstract class Program: KonsoleAdapter {
     override var konsoleStatus: KonsoleStatus = KonsoleStatus.IN_KALLBACK
 
     override var kurrentUserInput: Int? = null
-
-
+    
     /**
      * The Program's run loop. |
      * The logic provides the engine for kontrolling a Program's "clock cycle"

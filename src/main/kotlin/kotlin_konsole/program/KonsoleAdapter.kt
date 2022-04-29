@@ -19,12 +19,14 @@ interface KonsoleAdapter {
     var kurrentUserInput: Int?
 
     /**
-     * The Konsole's kurrently selected KonsoleMenu
+     * The Konsole's kurrently selected KonsoleMenu |
+     * *** Set this to your Program's MainMenu class! ***
      */
     var kurrentMenu: KonsoleMenu
 
     /**
      * The Konsole's previously selected KonsoleMenu
+     * *** Set this to your Program's MainMenu class! ***
      */
     var previousMenu: KonsoleMenu
 
