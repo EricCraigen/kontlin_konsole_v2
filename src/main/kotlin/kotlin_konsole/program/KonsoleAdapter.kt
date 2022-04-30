@@ -63,7 +63,7 @@ interface KonsoleAdapter {
     }
 
     /**
-     * Returns a tailored per KonsoleMenu, invalid selection message as a string |
+     * Returns a tailored per KonsoleMenu invalid selection message as a string |
      * NOTE: Printing to the Konsole is done from within KonsolePrinter
      */
     fun invalidSelection(currentMenu: KonsoleMenu, userInput: Int?): String {
