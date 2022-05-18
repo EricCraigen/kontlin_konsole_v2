@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.6.21"
+    kotlin("jvm") version "1.6.10"
     application
 }
 
@@ -13,6 +13,12 @@ repositories {
 }
 
 dependencies {
+    // kotlin jdk8
+    implementation(kotlin("stdlib-jdk8"))
+
+    // kotlinx reflect
+    implementation(kotlin("reflect"))
+
     testImplementation(kotlin("test"))
 
     // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
@@ -23,8 +29,14 @@ tasks.test {
     useJUnitPlatform()
 }
 
+// KotlinCompile
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "16"
+    kotlinOptions.apply {
+        jvmTarget = JavaVersion.VERSION_16.toString()
+        suppressWarnings = false
+        verbose = true
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+    }
 }
 
 application {

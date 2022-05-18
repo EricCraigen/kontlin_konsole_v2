@@ -1,4 +1,4 @@
-import kotlin_konsole.program.Program
+import kotlin_konsole.konsole.Konsole
 import kotlinx.coroutines.runBlocking
 import nfc_playground.NfcPlayground
 
@@ -6,7 +6,7 @@ fun main() {
 
     try {
         runBlocking {
-            val nfcPlayground: Program = NfcPlayground()
+            val nfcPlayground: Konsole = NfcPlayground()
 
             nfcPlayground.run()
         }

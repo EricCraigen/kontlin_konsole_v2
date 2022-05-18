@@ -28,7 +28,7 @@ interface KonsoleMenu {
      * If menu selection calls a method, "do work" within that method and return null to get back out to the Konsole;
      * Will present the user with this KonsoleMenu.
      */
-    fun kallback(userInput: Int): KonsoleMenu?
+    suspend fun kallback(userInput: Int): KonsoleMenu?
 
     /**
      * Determines if the users input IS the back option

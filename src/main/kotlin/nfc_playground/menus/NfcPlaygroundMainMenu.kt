@@ -1,7 +1,12 @@
+@file:OptIn(ExperimentalUnsignedTypes::class)
+
 package nfc_playground.menus
 
+import jni_tester.menu.JniTesterMenu
+import kotlin_konsole.konsole.KonsolePrinter
 import kotlin_konsole.menu.KonsoleMenu
 import kotlin_konsole.menu.MainMenu
+import kotlinx.coroutines.delay
 
 class NfcPlaygroundMainMenu: MainMenu() {
 
@@ -9,26 +14,34 @@ class NfcPlaygroundMainMenu: MainMenu() {
 
     override val options: MutableList<String> = NfcPlaygroundMainMenu.options
 
-    override fun kallback(userInput: Int): KonsoleMenu? {
-        println("kalling back yo!")
-
+    override suspend fun kallback(userInput: Int): KonsoleMenu? {
         return when (userInput) {
-            1 -> readTagsMenu
+            1 -> {
+                pcsc2PollingLoop() // Start polling loop...
+                null
+            }
             2 -> writeTagsMenu
+            3 -> jniTesterMenu
             else -> null
         }
     }
 
-    companion object {
+    private suspend fun pcsc2PollingLoop() {
+        KonsolePrinter.print("Polling for iso 14443", newlineBefore = true, newlineAfter = true)
+        delay(1000L)
+    }
 
-        private val readTagsMenu: ReadTagsMenu = ReadTagsMenu()
+
+
+    companion object {
+        private val jniTesterMenu: JniTesterMenu = JniTesterMenu()
 
         private val writeTagsMenu: WriteTagsMenu = WriteTagsMenu()
 
         private val options = arrayListOf(
             "Read Tags",
             "Write Tags",
-            "Utilities",
+            "Jni Tester Main Menu",
         )
     }
 

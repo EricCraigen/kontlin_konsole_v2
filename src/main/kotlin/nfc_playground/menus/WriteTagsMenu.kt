@@ -1,6 +1,8 @@
 package nfc_playground.menus
 
+import kotlin_konsole.konsole.KonsolePrinter
 import kotlin_konsole.menu.KonsoleMenu
+import kotlinx.coroutines.delay
 
 class WriteTagsMenu: KonsoleMenu {
 
@@ -8,18 +10,19 @@ class WriteTagsMenu: KonsoleMenu {
 
     override val options: MutableList<String> = WriteTagsMenu.options
 
-    override fun kallback(userInput: Int): KonsoleMenu? {
-        println("kalling back yo!")
+    override suspend fun kallback(userInput: Int): KonsoleMenu? {
         return when (userInput) {
-            1 -> readTagsMenu
+            1 -> {
+                KonsolePrinter.print("Place tag over reader...", newlineBefore = true, newlineAfter = false)
+                delay(1000L)
+                KonsolePrinter.print("Tag encoded!", newlineBefore = true, newlineAfter = true)
+                null
+            }
             else -> null
         }
     }
 
     companion object {
-
-        private val readTagsMenu: ReadTagsMenu = ReadTagsMenu()
-
 
         private val options = arrayListOf(
             "Write Single",
