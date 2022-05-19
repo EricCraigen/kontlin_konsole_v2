@@ -23,6 +23,10 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
+
+    // oshi
+    // https://github.com/oshi/oshi
+    implementation("com.github.oshi", "oshi-core", "6.1.0")
 }
 
 tasks.test {

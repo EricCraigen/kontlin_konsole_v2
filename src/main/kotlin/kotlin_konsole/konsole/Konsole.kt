@@ -13,6 +13,9 @@ abstract class Konsole: KonsoleAdapter {
     override var konsoleStatus: KonsoleStatus = KonsoleStatus.UNKNOWN
     override var kurrentUserInput: Int? = null
 
+//    val pid = Process.pid();
+//    Runtime.getRuntime().exec("kill " + pid);
+
     /**
      * The Konsole's run loop. |
      * The logic that provides the engine for kontrolling KonsoleMenu navigation.

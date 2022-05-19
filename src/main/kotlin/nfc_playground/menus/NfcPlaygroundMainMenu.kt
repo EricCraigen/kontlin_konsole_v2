@@ -1,8 +1,6 @@
-@file:OptIn(ExperimentalUnsignedTypes::class)
-
 package nfc_playground.menus
 
-import jni_tester.menu.JniTesterMenu
+import jni.konsole.menu.UtilitiesMenu
 import kotlin_konsole.konsole.KonsolePrinter
 import kotlin_konsole.menu.KonsoleMenu
 import kotlin_konsole.menu.MainMenu
@@ -21,7 +19,7 @@ class NfcPlaygroundMainMenu: MainMenu() {
                 null
             }
             2 -> writeTagsMenu
-            3 -> jniTesterMenu
+            3 -> utilitiesMenu
             else -> null
         }
     }
@@ -34,14 +32,14 @@ class NfcPlaygroundMainMenu: MainMenu() {
 
 
     companion object {
-        private val jniTesterMenu: JniTesterMenu = JniTesterMenu()
+        private val utilitiesMenu: UtilitiesMenu = UtilitiesMenu()
 
         private val writeTagsMenu: WriteTagsMenu = WriteTagsMenu()
 
         private val options = arrayListOf(
             "Read Tags",
             "Write Tags",
-            "Jni Tester Main Menu",
+            "Utilities",
         )
     }
 
