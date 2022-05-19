@@ -1,6 +1,5 @@
 package nfc_playground.menus
 
-import jni.konsole.menu.UtilitiesMenu
 import kotlin_konsole.konsole.KonsolePrinter
 import kotlin_konsole.menu.KonsoleMenu
 import kotlin_konsole.menu.MainMenu

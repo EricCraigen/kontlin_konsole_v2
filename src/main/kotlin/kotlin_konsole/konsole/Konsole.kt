@@ -7,7 +7,7 @@ import kotlin_konsole.menu.MainMenu
  * Defines the concrete properties and functionality required for a menu-driven Konsole application. |
  * Holds the kurrent KonsoleStatus and kurrent user input value; Defines the Program's run loop.
  */
-abstract class Konsole: KonsoleAdapter {
+abstract class Konsole: IKonsole {
 
     // Initialize default properties for the needed for the run loop
     override var konsoleStatus: KonsoleStatus = KonsoleStatus.UNKNOWN

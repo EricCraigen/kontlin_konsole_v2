@@ -6,7 +6,7 @@ import kotlin_konsole.menu.MainMenu
 /**
  * The Konsole. Defines the concrete properties and functionality required for a menu-driven Program
  */
-interface KonsoleAdapter {
+interface IKonsole {
 
     /**
      * The Konsole's kurrent status

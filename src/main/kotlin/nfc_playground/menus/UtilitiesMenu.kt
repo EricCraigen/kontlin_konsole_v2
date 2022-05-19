@@ -1,4 +1,4 @@
-package jni.konsole.menu
+package nfc_playground.menus
 
 import jni.konsole.IKonsole
 import kotlin_konsole.konsole.KonsolePrinter
@@ -37,10 +37,11 @@ class UtilitiesMenu: KonsoleMenu {
     private fun processPriority() {
         val procPri = IKonsole.getProcessPriority()
 
-        KonsolePrinter.print("Process Id: $procPri", newlineBefore = true, newlineAfter = true)
+        KonsolePrinter.print("Process Priority: $procPri", newlineBefore = true, newlineAfter = true)
     }
 
     private fun setProcessPriority() {
+        KonsolePrinter.print("Enter new priority (-20-19): ", newlineBefore = true, newlineAfter = false)
         val userInput = getUserInput()
 
         IKonsole.setProcessPriority(userInput)
