@@ -49,8 +49,13 @@ object KonsolePrinter {
      * Prints a message alerting the user that the KonsoleStatus has been set to STOPPED
      */
     fun killKonsole() {
-        val retStr = "\nKilling Konsole..."
-        this.print(retStr, newlineBefore = true, textColor = KonsoleKolors.RED_BOLD_BRIGHT, newlineAfter = true)
+//        val retStr = "\nKilling Konsole..."
+//        this.print(retStr, newlineBefore = true, textColor = KonsoleKolors.RED_BOLD_BRIGHT, newlineAfter = true)
+        // todo verify this works.... need to run outside
+        Runtime.getRuntime().addShutdownHook(Thread {
+            val retStr = "\nKilling Konsole..."
+            this.print(retStr, newlineBefore = true, textColor = KonsoleKolors.RED_BOLD_BRIGHT, newlineAfter = true)
+        })
     }
 
     /**
