@@ -1,5 +1,7 @@
 package kotlin_konsole.konsole
 
+import kotlin_konsole.konsole.utils.KonsoleKolors
+import kotlin_konsole.konsole.utils.KonsoleStatus
 import kotlin_konsole.menu.MainMenu
 
 /**
@@ -7,14 +9,12 @@ import kotlin_konsole.menu.MainMenu
  * Defines the concrete properties and functionality required for a menu-driven Konsole application. |
  * Holds the kurrent KonsoleStatus and kurrent user input value; Defines the Program's run loop.
  */
-abstract class Konsole: IKonsole {
+abstract class Konsole: KonsoleAdapter {
 
     // Initialize default properties for the needed for the run loop
     override var konsoleStatus: KonsoleStatus = KonsoleStatus.UNKNOWN
     override var kurrentUserInput: Int? = null
 
-//    val pid = Process.pid();
-//    Runtime.getRuntime().exec("kill " + pid);
 
     /**
      * The Konsole's run loop. |
@@ -32,7 +32,8 @@ abstract class Konsole: IKonsole {
 
             // Get the user's menu selection
             val userInput: Int? = promptUserForInput()?.toIntOrNull()
-            println()
+            // Clean up ANSI coloring...
+            println(KonsoleKolors.RESET)
 
             if (userInput != null) {
 

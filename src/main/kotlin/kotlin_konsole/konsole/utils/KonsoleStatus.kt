@@ -1,4 +1,4 @@
-package kotlin_konsole.konsole
+package kotlin_konsole.konsole.utils
 
 /**
  * The Konsole's status

@@ -1,10 +1,13 @@
 package kotlin_konsole.menu
 
+import kotlin_konsole.konsole.utils.KonsoleKolors
+import kotlin_konsole.konsole.utils.KonsoleMenuTheme
+
 /**
  * A Konsole's menu |
  * Defines the concrete properties and functionality required for a menu-driven Program
  */
-interface KonsoleMenu {
+interface KonsoleMenu: KonsoleMenuTheme {
 
     /**
      * The KonsoleMenu's title
@@ -16,11 +19,45 @@ interface KonsoleMenu {
      */
     val options: MutableList<String>
 
+    val menuWidth: Int
+
+    override val primaryTextColor: String
+        get() = KonsoleKolors.BLUE_BRIGHT
+
+    override val menuTitleTextColor: String
+        get() = KonsoleKolors.CYAN_BOLD_BRIGHT
+
+    override val secondaryTextColor: String?
+        get() = KonsoleKolors.GREEN_BRIGHT
+
+    override val optionsBackGroundColor: String?
+        get() = KonsoleKolors.BLACK_BACKGROUND_BRIGHT
+
+    override val outputStreamColors: MutableList<String>
+        get() = mutableListOf(
+            KonsoleKolors.BLUE_BOLD_BRIGHT, // Output Stream Bar Color
+            KonsoleKolors.CYAN_BOLD_BRIGHT, // Output Stream TimeStamp
+            KonsoleKolors.PURPLE_BOLD_BRIGHT, // Output Stream kallbackSignature
+            KonsoleKolors.YELLOW_BOLD_BRIGHT, // Output Stream Warning Text
+            KonsoleKolors.RED_BOLD_BRIGHT, // Output Stream Error Text
+            KonsoleKolors.GREEN_BOLD_BRIGHT, // Output Stream Success Message
+        )
+
     /**
      * The KonsoleMenu's back option
      */
     val backOption: Int
         get() = options.size + 1
+
+    fun menuWidth(): Int {
+        var longest = 0
+        this.options.map { option ->
+            if (option.length >= longest) {
+                longest = option.length
+            }
+        }
+        return longest
+    }
 
 
     /**

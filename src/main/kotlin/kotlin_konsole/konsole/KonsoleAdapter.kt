@@ -1,12 +1,15 @@
 package kotlin_konsole.konsole
 
+import kotlin_konsole.konsole.utils.KonsolePrinter
+import kotlin_konsole.konsole.utils.KonsoleStatus
+import kotlin_konsole.konsole.utils.KonsoleMenuTheme
 import kotlin_konsole.menu.KonsoleMenu
 import kotlin_konsole.menu.MainMenu
 
 /**
- * The Konsole. Defines the concrete properties and functionality required for a menu-driven Program
+ * The Konsole. Defines the concrete properties and functionality required for a menu-driven Konsole program
  */
-interface IKonsole {
+interface KonsoleAdapter {
 
     /**
      * The Konsole's kurrent status
@@ -36,21 +39,23 @@ interface IKonsole {
      */
     val mainMenu: MainMenu
 
+//    val mainKonsoleMenuTheme: MainKonsoleMenuTheme
+
     /**
      * Returns the "Killing Konsole..." message as a string |
      * NOTE: Printing to the Konsole is done from within KonsolePrinter
      */
-    fun killKonsole(): String {
+    fun killKonsole() {
         this.konsoleStatus = KonsoleStatus.STOPPED
-        return KonsolePrinter.killKonsole()
+        KonsolePrinter.killKonsole()
     }
 
     /**
      * Returns the current KonsoleMenu's options as a string |
      * NOTE: Printing to the Konsole is done from within KonsolePrinter
      */
-    fun printMenuOptions(currentMenu: KonsoleMenu): String {
-        return KonsolePrinter.printMenuOptions(currentMenu)
+    fun printMenuOptions(currentMenu: KonsoleMenu){
+        KonsolePrinter.printMenuOptions(currentMenu)
     }
 
     /**
@@ -67,8 +72,8 @@ interface IKonsole {
      * Returns a tailored per KonsoleMenu invalid selection message as a string |
      * NOTE: Printing to the Konsole is done from within KonsolePrinter
      */
-    fun invalidSelection(currentMenu: KonsoleMenu, userInput: Int?): String {
-        return KonsolePrinter.invalidSelection(currentMenu, userInput)
+    fun invalidSelection(currentMenu: KonsoleMenu, userInput: Int?) {
+        KonsolePrinter.invalidSelection(currentMenu, userInput)
     }
 
     /**

@@ -1,6 +1,7 @@
 package nfc_playground.menus
 
-import kotlin_konsole.konsole.KonsolePrinter
+import kotlin_konsole.konsole.utils.KonsoleKolors
+import kotlin_konsole.konsole.utils.KonsolePrinter
 import kotlin_konsole.menu.KonsoleMenu
 import kotlin_konsole.menu.MainMenu
 import kotlinx.coroutines.delay
@@ -11,11 +12,15 @@ class NfcPlaygroundMainMenu: MainMenu() {
 
     override val options: MutableList<String> = NfcPlaygroundMainMenu.options
 
+    override val menuWidth: Int = this.menuWidth()
+
     override suspend fun kallback(userInput: Int): KonsoleMenu? {
         return when (userInput) {
             1 -> {
-                pcsc2PollingLoop() // Start polling loop...
-                null
+                pcsc2PollingLoop()
+                val outputStreamEnd = KonsolePrinter.appendKonsoleOutput(this, "", "14443-A PCSC2 Layer 2 Polling End")
+                KonsolePrinter.print("$outputStreamEnd", newlineBefore = false, newlineAfter = true)
+                null // Return null to get back out to KonsoleMenu
             }
             2 -> writeTagsMenu
             3 -> utilitiesMenu
@@ -24,8 +29,15 @@ class NfcPlaygroundMainMenu: MainMenu() {
     }
 
     private suspend fun pcsc2PollingLoop() {
-        KonsolePrinter.print("Polling for iso 14443", newlineBefore = true, newlineAfter = true)
-        delay(1000L)
+        val outputStreamStart = KonsolePrinter.prependKonsoleOutput(this, "", "14443-A PCSC2 Layer 2 Polling Begin")
+        KonsolePrinter.print("$outputStreamStart\n", newlineBefore = true, newlineAfter = false)
+        for (i in 1..10) {
+            KonsolePrinter.print("Polling for iso 14443", textColor = this.outputStreamColors[5], newlineBefore = true, newlineAfter = true)
+            delay(1000L)
+            if (i == 10) {
+                KonsolePrinter.print("", newlineBefore = true, textColor = this.outputStreamColors[5], newlineAfter = false)
+            }
+        }
     }
 
 
