@@ -11,7 +11,7 @@ import kotlin_konsole.menu.MainMenu
  */
 abstract class Konsole: KonsoleAdapter {
 
-    // Initialize default properties for the needed for the run loop
+    // Initialize default properties needed for starting the run loop
     override var konsoleStatus: KonsoleStatus = KonsoleStatus.UNKNOWN
     override var kurrentUserInput: Int? = null
 

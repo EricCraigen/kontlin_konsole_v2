@@ -1,6 +1,5 @@
 package nfc_playground.menus
 
-import kotlin_konsole.konsole.utils.KonsoleKolors
 import kotlin_konsole.konsole.utils.KonsolePrinter
 import kotlin_konsole.menu.KonsoleMenu
 import kotlinx.coroutines.delay

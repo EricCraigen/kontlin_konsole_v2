@@ -1,7 +1,6 @@
 package nfc_playground.menus
 
 import jni.konsole.IKonsole
-import kotlin_konsole.konsole.utils.KonsoleKolors
 import kotlin_konsole.konsole.utils.KonsolePrinter
 import kotlin_konsole.menu.KonsoleMenu
 
@@ -53,12 +52,23 @@ class UtilitiesMenu: KonsoleMenu {
 
         val currentPriority = IKonsole.getProcessPriority()
 
+        var outputStreamStart = KonsolePrinter.prependKonsoleOutput(
+            this,
+            "",
+            "Native: SetPriorityClass(GetCurrentProcess(), priority) Start"
+        )
+
         IKonsole.setProcessPriority(userInput)
 
         val newPriority = IKonsole.getProcessPriority()
 
-        val outputStreamStart = KonsolePrinter.prependKonsoleOutput(this, "\n\n${this.outputStreamColors[5]}Current Priority: ${this.outputStreamColors[3]}$currentPriority\n\n${this.outputStreamColors[5]}Requested Priority: ${this.outputStreamColors[3]}$userInput\n\n${this.outputStreamColors[5]}New Priority: ${this.outputStreamColors[3]}$newPriority\n\n", "Native: SetPriorityClass(GetCurrentProcess(), priority) Start")
-        val outputStreamComplete = KonsolePrinter.appendKonsoleOutput(this, outputStreamStart, "Native: SetPriorityClass(GetCurrentProcess(), priority) End")
+        outputStreamStart += "\n\n${this.outputStreamColors[5]}Current Priority: ${this.outputStreamColors[3]}$currentPriority\n\n${this.outputStreamColors[5]}Requested Priority: ${this.outputStreamColors[3]}$userInput\n\n${this.outputStreamColors[5]}New Priority: ${this.outputStreamColors[3]}$newPriority\n\n"
+
+        val outputStreamComplete = KonsolePrinter.appendKonsoleOutput(
+            this,
+            outputStreamStart,
+            "Native: SetPriorityClass(GetCurrentProcess(), priority) End",
+        )
         KonsolePrinter.print(outputStreamComplete, newlineBefore = true, newlineAfter = true)
     }
 

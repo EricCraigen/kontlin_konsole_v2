@@ -1,8 +1,10 @@
 package kotlin_konsole.konsole.utils
 
+import common.time.HighLevelClock
 import kotlin_konsole.menu.KonsoleMenu
 import kotlin_konsole.menu.MainMenu
-import java.sql.Timestamp
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 /**
  * The Konsole's Printer |
@@ -49,12 +51,9 @@ object KonsolePrinter {
      * Prints a message alerting the user that the KonsoleStatus has been set to STOPPED
      */
     fun killKonsole() {
-//        val retStr = "\nKilling Konsole..."
-//        this.print(retStr, newlineBefore = true, textColor = KonsoleKolors.RED_BOLD_BRIGHT, newlineAfter = true)
-        // todo verify this works.... need to run outside
+        // todo verify this works.... need to run app from outside IDE in OS shell...
         Runtime.getRuntime().addShutdownHook(Thread {
-            val retStr = "\nKilling Konsole..."
-            this.print(retStr, newlineBefore = true, textColor = KonsoleKolors.RED_BOLD_BRIGHT, newlineAfter = true)
+            this.print("\nKilling Konsole...", newlineBefore = true, textColor = KonsoleKolors.RED_BOLD_BRIGHT, newlineAfter = true)
         })
     }
 
@@ -84,7 +83,7 @@ object KonsolePrinter {
     }
 
     fun prependKonsoleOutput(menu: KonsoleMenu, retStr: String, kallbackSignature: String): String {
-        var startStr = "${menu.outputStreamColors[0]}| ---{ ${menu.outputStreamColors[1]}${Timestamp(System.currentTimeMillis())} ${menu.outputStreamColors[0]}}--- | ---{ ${KonsoleKolors.GREEN_BRIGHT}Output Stream Start ${menu.outputStreamColors[0]}}--- | ---{ ${menu.outputStreamColors[2]}kallbackSignature: $kallbackSignature ${menu.outputStreamColors[0]}}--- |${KonsoleKolors.RESET}"
+        var startStr = "${menu.outputStreamColors[0]}| ---{ ${menu.outputStreamColors[1]}${LocalDateTime.now(HighLevelClock(ZoneId.systemDefault()))} ${menu.outputStreamColors[0]}}--- | ---{ ${KonsoleKolors.GREEN_BRIGHT}Output Stream Start ${menu.outputStreamColors[0]}}--- | ---{ ${menu.outputStreamColors[2]}kallbackSignature: $kallbackSignature ${menu.outputStreamColors[0]}}--- |${KonsoleKolors.RESET}"
         startStr += retStr
 
         return startStr
@@ -93,7 +92,7 @@ object KonsolePrinter {
     fun appendKonsoleOutput(menu: KonsoleMenu, retStr: String, kallbackSignature: String): String {
         var tempStr = retStr
 
-        val endStr = "${menu.outputStreamColors[0]}| ---{ ${menu.outputStreamColors[1]}${Timestamp(System.currentTimeMillis())} ${menu.outputStreamColors[0]}}--- | ---{ ${KonsoleKolors.RED_BRIGHT}Output Stream End ${menu.outputStreamColors[0]}}--- | ---{ ${menu.outputStreamColors[2]}kallbackSignature: $kallbackSignature ${menu.outputStreamColors[0]}}--- |${KonsoleKolors.RESET}"
+        val endStr = "${menu.outputStreamColors[0]}| ---{ ${menu.outputStreamColors[1]}${LocalDateTime.now(HighLevelClock(ZoneId.systemDefault()))} ${menu.outputStreamColors[0]}}--- | ---{ ${KonsoleKolors.RED_BRIGHT}Output Stream End ${menu.outputStreamColors[0]}}--- | ---{ ${menu.outputStreamColors[2]}kallbackSignature: $kallbackSignature ${menu.outputStreamColors[0]}}--- |${KonsoleKolors.RESET}"
         tempStr += endStr
 
         return tempStr

@@ -37,7 +37,7 @@ interface KonsoleMenu: KonsoleMenuTheme {
         get() = mutableListOf(
             KonsoleKolors.BLUE_BOLD_BRIGHT, // Output Stream Bar Color
             KonsoleKolors.CYAN_BOLD_BRIGHT, // Output Stream TimeStamp
-            KonsoleKolors.PURPLE_BOLD_BRIGHT, // Output Stream kallbackSignature
+            KonsoleKolors.CYAN_BOLD_BRIGHT, // Output Stream kallbackSignature
             KonsoleKolors.YELLOW_BOLD_BRIGHT, // Output Stream Warning Text
             KonsoleKolors.RED_BOLD_BRIGHT, // Output Stream Error Text
             KonsoleKolors.GREEN_BOLD_BRIGHT, // Output Stream Success Message
@@ -58,7 +58,6 @@ interface KonsoleMenu: KonsoleMenuTheme {
         }
         return longest
     }
-
 
     /**
      * Resolves the users input, returns the next KonsoleMenu if menu selection resolves as a KonsoleMenu;

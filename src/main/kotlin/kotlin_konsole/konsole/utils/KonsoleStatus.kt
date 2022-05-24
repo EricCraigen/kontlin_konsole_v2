@@ -21,7 +21,7 @@ enum class KonsoleStatus {
     IN_KALLBACK,
 
     /**
-     * The Konsole is kurrently unknown |
+     * The Konsole status is kurrently unknown |
      */
     UNKNOWN;
 }

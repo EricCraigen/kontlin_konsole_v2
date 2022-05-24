@@ -1,6 +1,5 @@
 package nfc_playground.menus
 
-import kotlin_konsole.konsole.utils.KonsoleKolors
 import kotlin_konsole.konsole.utils.KonsolePrinter
 import kotlin_konsole.menu.KonsoleMenu
 import kotlin_konsole.menu.MainMenu
@@ -19,7 +18,7 @@ class NfcPlaygroundMainMenu: MainMenu() {
             1 -> {
                 pcsc2PollingLoop()
                 val outputStreamEnd = KonsolePrinter.appendKonsoleOutput(this, "", "14443-A PCSC2 Layer 2 Polling End")
-                KonsolePrinter.print("$outputStreamEnd", newlineBefore = false, newlineAfter = true)
+                KonsolePrinter.print(outputStreamEnd, newlineBefore = false, newlineAfter = true)
                 null // Return null to get back out to KonsoleMenu
             }
             2 -> writeTagsMenu
