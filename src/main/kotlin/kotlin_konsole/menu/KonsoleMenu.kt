@@ -36,12 +36,26 @@ interface KonsoleMenu: KonsoleMenuTheme {
     override val outputStreamColors: MutableList<String>
         get() = mutableListOf(
             KonsoleKolors.BLUE_BOLD_BRIGHT, // Output Stream Bar Color
-            KonsoleKolors.CYAN_BOLD_BRIGHT, // Output Stream TimeStamp
-            KonsoleKolors.CYAN_BOLD_BRIGHT, // Output Stream kallbackSignature
+            KonsoleKolors.CYAN_BOLD_BRIGHT, // Output Stream Stamps
             KonsoleKolors.YELLOW_BOLD_BRIGHT, // Output Stream Warning Text
             KonsoleKolors.RED_BOLD_BRIGHT, // Output Stream Error Text
             KonsoleKolors.GREEN_BOLD_BRIGHT, // Output Stream Success Message
         )
+
+    val outputStreamBarColor: String
+        get() = this.outputStreamColors[0]
+
+    val outputStreamStampsColor: String
+        get() = this.outputStreamColors[1]
+
+    val outputStreamWarningTextColor: String
+        get() = this.outputStreamColors[2]
+
+    val outputStreamErrorTextColor: String
+        get() = this.outputStreamColors[3]
+
+    val outputStreamSuccessTextColor: String
+        get() = this.outputStreamColors[4]
 
     /**
      * The KonsoleMenu's back option

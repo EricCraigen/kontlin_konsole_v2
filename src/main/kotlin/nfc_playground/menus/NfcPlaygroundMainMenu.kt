@@ -31,10 +31,10 @@ class NfcPlaygroundMainMenu: MainMenu() {
         val outputStreamStart = KonsolePrinter.prependKonsoleOutput(this, "", "14443-A PCSC2 Layer 2 Polling Begin")
         KonsolePrinter.print("$outputStreamStart\n", newlineBefore = true, newlineAfter = false)
         for (i in 1..10) {
-            KonsolePrinter.print("Polling for iso 14443", textColor = this.outputStreamColors[5], newlineBefore = true, newlineAfter = true)
+            KonsolePrinter.print("Polling for iso 14443", textColor = this.outputStreamSuccessTextColor, newlineBefore = true, newlineAfter = true)
             delay(1000L)
             if (i == 10) {
-                KonsolePrinter.print("", newlineBefore = true, textColor = this.outputStreamColors[5], newlineAfter = false)
+                KonsolePrinter.print("", newlineBefore = true, textColor = this.outputStreamSuccessTextColor, newlineAfter = false)
             }
         }
     }

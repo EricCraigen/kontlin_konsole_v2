@@ -36,15 +36,14 @@ object KonsolePrinter {
             retStr += " ${menu.optionsBackGroundColor} ${index + 1}. $paddedOption ${KonsoleKolors.RESET}\n"
         }
 
-        val paddedBackOption: String =
+        retStr +=
             if (menu is MainMenu) {
-                " ${menu.optionsBackGroundColor} ${menu.options.size + 1}. Exit ".padEnd(menuWidth + 14, ' ') + "${KonsoleKolors.RESET}\n"
+                 " ${menu.optionsBackGroundColor} ${menu.options.size + 1}. Exit ".padEnd(menuWidth + 14, ' ') + "${KonsoleKolors.RESET}\n"
             } else {
                 " ${menu.optionsBackGroundColor} ${menu.options.size + 1}. Back ".padEnd(menuWidth + 14, ' ') + "${KonsoleKolors.RESET}\n"
             }
 
-        retStr += paddedBackOption
-        print(retStr, newlineBefore = true, newlineAfter = true)
+        this.print(retStr, newlineBefore = true, newlineAfter = true)
     }
 
     /**
@@ -83,7 +82,7 @@ object KonsolePrinter {
     }
 
     fun prependKonsoleOutput(menu: KonsoleMenu, retStr: String, kallbackSignature: String): String {
-        var startStr = "${menu.outputStreamColors[0]}| ---{ ${menu.outputStreamColors[1]}${LocalDateTime.now(HighLevelClock(ZoneId.systemDefault()))} ${menu.outputStreamColors[0]}}--- | ---{ ${KonsoleKolors.GREEN_BRIGHT}Output Stream Start ${menu.outputStreamColors[0]}}--- | ---{ ${menu.outputStreamColors[2]}kallbackSignature: $kallbackSignature ${menu.outputStreamColors[0]}}--- |${KonsoleKolors.RESET}"
+        var startStr = "${menu.outputStreamBarColor}| ---{ ${menu.outputStreamStampsColor}${LocalDateTime.now(HighLevelClock(ZoneId.systemDefault()))} ${menu.outputStreamBarColor}}--- | ---{ ${KonsoleKolors.GREEN_BRIGHT}Output Stream Start ${menu.outputStreamBarColor}}--- | ---{ ${menu.outputStreamStampsColor}kallbackSignature: $kallbackSignature ${menu.outputStreamBarColor}}--- |${KonsoleKolors.RESET}"
         startStr += retStr
 
         return startStr
@@ -92,7 +91,7 @@ object KonsolePrinter {
     fun appendKonsoleOutput(menu: KonsoleMenu, retStr: String, kallbackSignature: String): String {
         var tempStr = retStr
 
-        val endStr = "${menu.outputStreamColors[0]}| ---{ ${menu.outputStreamColors[1]}${LocalDateTime.now(HighLevelClock(ZoneId.systemDefault()))} ${menu.outputStreamColors[0]}}--- | ---{ ${KonsoleKolors.RED_BRIGHT}Output Stream End ${menu.outputStreamColors[0]}}--- | ---{ ${menu.outputStreamColors[2]}kallbackSignature: $kallbackSignature ${menu.outputStreamColors[0]}}--- |${KonsoleKolors.RESET}"
+        val endStr = "${menu.outputStreamBarColor}| ---{ ${menu.outputStreamStampsColor}${LocalDateTime.now(HighLevelClock(ZoneId.systemDefault()))} ${menu.outputStreamBarColor}}--- | ---{ ${KonsoleKolors.RED_BRIGHT}Output Stream End ${menu.outputStreamBarColor}}--- | ---{ ${menu.outputStreamStampsColor}kallbackSignature: $kallbackSignature ${menu.outputStreamBarColor}}--- |${KonsoleKolors.RESET}"
         tempStr += endStr
 
         return tempStr
